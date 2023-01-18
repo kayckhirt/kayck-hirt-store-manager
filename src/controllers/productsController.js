@@ -1,30 +1,21 @@
-const router = require('express').Router()
-// Aula 23.8 Revisão bloco 23
-// const express = require('express');
-// const router = express.Router();
 const productsService = require('../services/productsService');
 
-router.get('/', async (req, res) => {
-  try {
+  const getAll = async (req, res) => {
     const products = await productsService.getAll();
     return res.status(200).json(products);
-  } catch (error) {
-    console.log(error);
-    res.status(500).end();
-  }
-});
+  };  
 
-router.get('/products/:id', productsService.getById, async (req, res) => {
-const { id } = req.params;
+  const getById = async (req, res) => {
+      const { id } = req.params;
+      const { type, message } = await productsService.getById(id);
+      // Se o service retornar um erro, é retornado o status 404 e a mensagem de erro.
+  if (type) return res.status(404).json({ message });
 
-  const { type, message, data } = await productsService.getById(id);
-  if (type) return res.status(type).json(message);
-    return res.status(200).json(data);
+  // Se o service não retornar um erro, é retornado o status 200 e o produto.
+  res.status(200).json(message);
+  };
 
-    // console.log(error);
-    // res.status(404).json({ message: "Product not found"});
-});
-
-module.exports = router;
-
-//CONTROLER
+module.exports = {
+  getAll,
+  getById,
+};
