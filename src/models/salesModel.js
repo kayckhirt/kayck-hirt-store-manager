@@ -2,15 +2,17 @@ const connection = require('./db/connection');
 
 // const dateNow = Date.now();
 
-const createSales = async() => {
+const createSales = async () => {
   const [onlySale] = await connection.execute(
-    'INSERT INTO StoreManager.sales (date) VALUES (NOW())');
+    'INSERT INTO StoreManager.sales (date) VALUES (NOW())',
+);
     return onlySale.insertId;
 };
 
-const registerSalesMany = async(salesId, productId, quantity) => {
-  const [sales] = await connection.execute(
-    'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',[salesId, productId, quantity]);
+const registerSalesMany = async (salesId, productId, quantity) => {
+  const query = 'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity)';
+  const queryvalue = ' VALUES (?, ?, ?)';
+  const [sales] = await connection.execute(`${query}${queryvalue}`, [salesId, productId, quantity]);
     return sales.insertId;
 };
 
