@@ -12,7 +12,29 @@ const validateName = (req, res, next) => {
   next();
 };
 
+const productIdUndefinid = (req,res, next) => {
+  const sale = req.body;
+  const { productId, quantity } = sale;
+  if (!productId) {
+    return res.status(400).json({ message: '"productId" is required' });
+  };
+  if (!quantity) {
+    return res.status(400).json({ message: '"productId" is required' });
+  };
+  next();
+};
+
+// const quantityUndefinid = (req,res, next) => {
+//   const sale = req.body;
+//   const { quantity } = sale;
+//   if (quantity === undefined || quantity === null || !quantity) {
+//     return res.status(400).json({ message: '"quantity" is required' });
+//   };
+//   next();
+// };
+
 module.exports = {
   validateNameLength,
   validateName,
+  productIdUndefinid,
 };
