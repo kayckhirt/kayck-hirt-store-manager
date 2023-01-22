@@ -21,19 +21,26 @@ const registerSalesMany = async (salesArray) => {
     };
 };
 
-// const getAll = async () => {
-//   const sales = await salesModel.getAll();
-//   return sales;
-// };
+const getAll = async () => {
+  const sales = await salesModel.getAll();
+  return sales;
+};
 
-// const getId = async (id) => {
-//   const sales = await salesModel.getById(id);
-//   if (!sales) return { status: 404, message: 'Sale not found' };
-//   return { type: null, message: sales };
-// };
+const getId = async (id) => {
+  const sales = await salesModel.getById(id);
+  // const sales = await salesModel.getById(id);
+  // if (!sales) return { status: 404, message: 'Sale not found' };
+  const salesAll = await salesModel.getAll();
+  const consultaId = salesAll.map(async (element) => {
+    const recebeId = await getById(element.saleId); 
+    return recebeId;
+  });
+  if (consultaId.includes(undefined)) return { status: 404, message: 'Sale not found' };
+  return { type: null, message: sales };
+};
 
 module.exports = {
   registerSalesMany,
-  // getAll,
-  // getId,
+  getAll,
+  getId,
 };
