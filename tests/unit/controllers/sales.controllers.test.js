@@ -5,8 +5,8 @@
 // const { expect } = chai;
 // chai.use(sinonChai);
 
-// const salesService = require('../../../src/services/salesService');
-// const salesController = require('../../../../src/controllers/salesController');
+// const { salesService } = require('../../../src/services/salesService');
+// const { salesController } = require('../../../../src/controllers/salesController');
 // const { sales } = require('./mocks/sales.mock.controllers');
 
 // describe('Teste de unidade do salesControllers', function () {
@@ -14,7 +14,12 @@
 //     it('Deve retornar o status 201 e as vendas', async function (){
 //       //Arranjo
 //       const res = {};
-//       const req = {};
+//       const req = {
+//         body: {
+//             "productId": 1,
+//             "quantity": 1
+//         }
+//       };
 //       res.status = sinon.stub().returns(res);
 //       res.json = sinon.stub().returns();
 //       sinon.stub(salesService, 'registerSalesMany')

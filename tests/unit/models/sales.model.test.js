@@ -6,14 +6,22 @@ const connection = require('../../../src/models/db/connection');
 const sales  = require('../models/mocks/sales.model.mock');
 
 describe('Teste de unidade do model Sales', function() {
-  it('Cria a lista de Sales', async function() {
-    sinon.stub(connection, 'execute').resolves([sales]);
+  it('Cria a id de Sales', async function() {
+    sinon.stub(connection, 'execute').resolves([{ insertId:5}]);
 
-    const result = await salesModel.registerSalesMany();
+    const result = await salesModel.createSales(sales);
 
-    expect(result).to.be.deep.equal(sales);
+    expect(result).to.be.deep.equal(5);
   });
   afterEach(function () {
     sinon.restore();
   });
+  it('Cria a id de Sales_products', async function() {
+    sinon.stub(connection, 'execute').resolves([{ insertId:5}]);
+
+    const result = await salesModel.registerSalesMany(sales);
+
+    expect(result).to.be.deep.equal(5);
+  });
 });
+
