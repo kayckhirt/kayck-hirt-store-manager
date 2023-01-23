@@ -20,8 +20,17 @@ const productsService = require('../services/productsService');
     const newProduct = await productsService.registerProduct(name);
     res.status(201).json(newProduct);
   };
+
+  const del = async (req, res) => {
+  const { id } = req.params;
+  const { type, status, message } = await productsService.del(id);
+  if (status === 404) return res.status(404).json({ message });
+  if (type === 204) return res.status(204).end();
+  };
+
 module.exports = {
   getAll,
   getById,
   registerProduct,
+  del,
 };

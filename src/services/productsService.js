@@ -21,8 +21,16 @@ const registerProduct = async (name) => {
   return insertProduct;
 };
 
+const del = async (id) => {
+  const deleteProduct = await productsModel.del(id);
+  if (deleteProduct.affectedRows === 1) return { type: 204 };
+  
+  return { status: 404, message: 'Product not found' };
+};
+
 module.exports = { 
   getAll,
   getById,
   registerProduct,
+  del,
 };
