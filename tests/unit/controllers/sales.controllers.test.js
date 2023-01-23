@@ -5,9 +5,9 @@ const sinonChai = require('sinon-chai');
 const { expect } = chai;
 chai.use(sinonChai);
 
-const { salesService } = require('../../../src/services/salesService');
-const { salesController } = require('../../../../src/controllers/salesController');
-const { sales } = require('./mocks/sales.mock.controllers');
+const salesService = require('../../../src/services/salesService');
+const salesController = require('../../../src/controllers/salesController')
+const sales = require('./mocks/sales.mock.controllers');
 
 describe('Teste de unidade do salesControllers', function () {
   describe('criando as sales', function () {
