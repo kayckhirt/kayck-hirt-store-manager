@@ -27,16 +27,11 @@ const getAll = async () => {
 };
 
 const getId = async (id) => {
-  const sales = await salesModel.getById(id);
-  // const sales = await salesModel.getById(id);
-  // if (!sales) return { status: 404, message: 'Sale not found' };
-  const salesAll = await salesModel.getAll();
-  const consultaId = salesAll.map(async (element) => {
-    const recebeId = await getById(element.saleId); 
-    return recebeId;
-  });
-  if (consultaId.includes(undefined)) return { status: 404, message: 'Sale not found' };
-  return { type: null, message: sales };
+  const saleId = await salesModel.getById(id);
+  // console.log(saleId)
+  // Quando acha o saleId vem como um objeto quando não acha vem com array vazio.
+  if (saleId.length === 0) return { status: 404, message: 'Sale not found' };
+  return { type: null, message: saleId };
 };
 
 module.exports = {
